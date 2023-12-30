@@ -6,6 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   distDir: "docs",
+  basePath: "/timezone-to-unix",
 };
 
 module.exports = nextConfig;

@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import {
   ActionIcon,
   Container,
@@ -39,7 +38,7 @@ const timezoneIdMap = new Map<
 >([...timezoneMap].map(([label, tz]) => [tz.id, { ...tz }]));
 
 export default function Home() {
-  const [dateTime, setDateTime] = useState<DateValue>(null);
+  const [dateTime, setDateTime] = useState<DateValue>(new Date());
   const [tzId, setTzId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -50,6 +49,7 @@ export default function Home() {
     }
   }, []);
 
+  const discordCopyPastaValue = `<t:${dayjs(dateTime).unix()}:F>`;
   return (
     <>
       <Head>
@@ -105,17 +105,17 @@ export default function Home() {
             <TextInput
               label="Discord"
               variant="unstyled"
-              value={`<t:${dayjs(dateTime).unix()}:F>`}
+              value={discordCopyPastaValue}
               readOnly
               style={{
                 borderBottom: "1px solid gray",
               }}
               placeholder="Discord format"
               rightSection={
-                <CopyButton value="https://mantine.dev">
+                <CopyButton value={discordCopyPastaValue}>
                   {({ copied, copy }) => (
                     <ActionIcon
-                      color={copied ? "blue" : "blue"}
+                      color={copied ? "green" : "blue"}
                       variant={copied ? "filled" : "outline"}
                       onClick={copy}
                     >
